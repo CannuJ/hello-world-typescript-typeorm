@@ -1,10 +1,21 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
+// src/entity/Account.ts
 
-@Entity()
-export class Account {
-  @PrimaryColumn()
+import { EntitySchema } from "typeorm";
+export interface Account {
   id: number;
-
-  @Column()
   balance: number;
 }
+
+export const AccountEntity = new EntitySchema<Account>({
+    name: "Account",
+    columns: {
+        id: {
+            type: Number,
+            primary: true
+            // generated: true
+        },
+        balance: {
+            type: Number
+        }
+    }
+})
