@@ -1,8 +1,8 @@
 // src/index.ts
 
 import "reflect-metadata";
-import { createConnection, getRepository, Repository } from "typeorm";
-import { Account, AccountEntity } from "./entity/Account";
+import { createConnection, getRepository } from "typeorm";
+import { Account, AccountSchema } from "./entity/Account";
 
 async function insertAccount(repository, accId: number, accBalance: number) {
 
@@ -36,11 +36,10 @@ async function transferFunds(repository, amount: number, from: number, to: numbe
   console.log("Transfer complete.");
 }
 
-createConnection()
-  .then(async (connection) => {
+createConnection().then(async (connection) => {
 
   // request data
-  const accountRepository = getRepository<Account>(AccountEntity);
+  const accountRepository = getRepository<Account>(AccountSchema);
 
     await insertAccount(accountRepository, 1, 1000);
     await printBalance(accountRepository, 1);
@@ -51,5 +50,5 @@ createConnection()
     await transferFunds(accountRepository, 500, 1, 2);
     await printBalance(accountRepository, 1);
     await printBalance(accountRepository, 2);
-  })
-  .catch((error) => console.log(error));
+    
+  }).catch((error) => console.log(error));
